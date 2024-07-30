@@ -5,7 +5,8 @@
   "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev-start": "nodemon src/server.js",
-        "start": "node src/server.js"
+        "start": "node src/server.js",
+        "db-generation": "node src/database/db.generation.js"
     },
     "dependencies": {
         "cloudinary": "^2.2.0",

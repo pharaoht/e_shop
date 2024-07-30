@@ -1,0 +1,22 @@
+Backend API for the e_shop site
+
+hosted on railway.com
+db hosted on avaicon.com
+
+To get started
+
+1. Install All Dependencies
+
+   - ex: npm i or npm install
+
+2. Get Private Variables from Admin
+
+   - You will need these private variables to connect to various services. Contact the admin to get them.
+
+3. Run Database Scripts
+
+   - ex: npm run db-generation
+
+4. Start App in Dev-Mode
+
+   - ex: npm run dev-start
