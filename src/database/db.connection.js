@@ -21,7 +21,7 @@ pool.getConnection((err, connection) => {
     console.error('Error connecting to MySQL:', err);
     return;
   }
-  console.info('*** Connected to MySQL ***');
+  console.info('*** MySQL Connected ✅ ***');
 
   // Release the connection back to the pool
   connection.release();
@@ -29,22 +29,22 @@ pool.getConnection((err, connection) => {
 
 // Listen for connection errors
 pool.on('error', (err) => {
-  console.error('MySQL pool error:', err);
+  console.error('*** MySQL pool error: ***', err);
 });
 
 // Listen for pool reconnections
 pool.on('connection', (connection) => {
-  console.info('MySQL pool reconnected');
+  console.info('*** MySQL Reconnected ***');
 });
 
 // Listen for pool disconnections
 pool.on('acquire', (connection) => {
-  console.info('MySQL pool connection acquired');
+  console.info('*** MySQL Acquired ***');
 });
 
 // Listen for pool release events
 pool.on('release', (connection) => {
-  console.info('MySQL pool connection released');
+  console.info('*** MySQL Connection Released ***');
 });
 
 module.exports = pool.promise();

@@ -4,7 +4,7 @@ const app = require('./app');
 
 const PORT = 8000;
 
-const server = http.createServer();
+const server = http.createServer(app);
 
 server.listen(PORT, () => {
     console.log('Server Ready and...')

@@ -1,5 +1,11 @@
-CREATE TRIGGER delete_top_image AFTER DELETE ON tops
+DELIMITER //
+
+CREATE TRIGGER delete_top_image
+AFTER DELETE ON tops
 FOR EACH ROW
 BEGIN
     DELETE FROM top_images WHERE id = OLD.photo_id;
-END;
+END//
+
+-- Reset the delimiter back to ;
+DELIMITER ;
