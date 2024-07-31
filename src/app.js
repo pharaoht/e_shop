@@ -2,6 +2,8 @@ const express = require('express');
 
 const pool = require('./database/db.connection');
 
+const redis = require('./services/cache/redis.cache');
+
 const path = require('path');
 
 const cors = require('cors');

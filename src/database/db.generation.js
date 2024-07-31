@@ -29,7 +29,7 @@ async function runScripts(){
 
             if(file === 'triggers.script.sql'){
 
-                console.log('Executing statement:', statement);
+                console.log('\n Executing statement:', sql);
 
                 await connection.query(sql);
             }
@@ -38,19 +38,22 @@ async function runScripts(){
                 const statements = sql.split(';').map(s => s.trim()).filter(s => s.length);
 
                 for (const statement of statements) {
+
                     if (statement) {
-                        console.log('Executing statement:', statement);
+
+                        console.log(' \n Executing statement: \n', statement);
+
                         await connection.query(statement);
                     }
                 }
             }
 
-            console.log(`${file} executed successfully`);
+            console.log(`\n *** ${file} executed successfully *** \n`);
 
             await connection.commit();
         }
 
-        console.log('All scripts executed successfully');
+        console.log('\n All scripts executed successfully \n');
 
     } catch (error) {
 
