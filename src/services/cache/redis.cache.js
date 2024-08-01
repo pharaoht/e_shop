@@ -13,7 +13,7 @@ class RedisCacheService {
         if(!RedisCacheService.instance){
 
             console.log('*** creating redis client ***');
-
+            console.log(DOMAIN)
             this.redisClient = redis.createClient({
                 url: ENVIRONMENT === 'production' ? DOMAIN : LOCALDOMAIN,
                 socket: {
