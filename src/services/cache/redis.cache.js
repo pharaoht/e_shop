@@ -13,7 +13,7 @@ class RedisCacheService {
         if(!RedisCacheService.instance){
 
             console.log('*** creating redis client ***');
-            console.log(DOMAIN)
+
             this.redisClient = redis.createClient({
                 url: ENVIRONMENT === 'production' ? DOMAIN : LOCALDOMAIN,
                 socket: {
@@ -43,10 +43,28 @@ class RedisCacheService {
         return RedisCacheService.instance;
     }
 
-    async get(){};
+    async get(key){
 
-    async set(){
+        try {
 
+            return await this.redisClient.get(key)
+        }
+        catch(error){
+
+            console.error('Error while getting key in redis:', error)
+        }
+    };
+
+    async set(key, value){
+
+        try {
+
+            await this.redisClient.set(key, value)
+        }
+        catch(error){
+
+            console.error('Error while setting key/value in redis:', error)
+        };
     };
 };
 
