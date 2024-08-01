@@ -42,6 +42,12 @@ class RedisCacheService {
 
         return RedisCacheService.instance;
     }
+
+    async get(){};
+
+    async set(){
+
+    };
 };
 
 const instance = new RedisCacheService();

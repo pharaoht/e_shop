@@ -4,10 +4,11 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "dev-start": "nodemon src/server.js",
+    "dev-start": "sh ./docker-start.sh && nodemon src/server.js",
     "start": "node src/server.js",
     "db-generation": "node src/database/db.generation.js",
-    "install:prod": "npm install --omit=dev"
+    "install:prod": "npm install --omit=dev",
+    "start-docker": "sh ./docker-start.sh"
   },
   "dependencies": {
     "cloudinary": "^2.2.0",
