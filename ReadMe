@@ -13,10 +13,38 @@ To get started
 
    - You will need these private variables to connect to various services. Contact the admin to get them.
 
-3. Run Database Scripts
+3. Install Docker and download the redis image
+
+   - once docker is installed name the container 'redisTest'
+
+4. Run Database Scripts
 
    - ex: npm run db-generation
 
-4. Start App in Dev-Mode
+5. Start App in Dev-Mode
 
    - ex: npm run dev-start
+
+REST API ROUTES
+
+    - TOPS
+        1. Get all tops: GET /api/tops
+            Get tops of a specific size: GET /api/tops?size=M
+            Get tops of a specific category: GET /api/tops?category=shirt
+            Get tops of a specific gender: GET /api/tops?gender=male
+            Get tops of a specific material: GET /api/tops?materials=cotton
+            Get tops of a specific color: GET /api/tops?color=red
+            Get a limited number of tops with pagination: GET /api/tops?limit=10&offset=20
+
+SERVICES src/services
+
+    - Cache /services/cache
+        > This api utilizes redis for data caching of data that rarely changes but that is always called.
+
+        > Using redis service instance
+            - The redis service will be init when the application spins up.
+            - To prevent multiple creations of the redis service instance, a singleton pattern is implemented
+
+            - Methods of the redis service
+                > get(): to get a key in the redis cluster
+                > set(): to set data in the redis cluster
