@@ -1,11 +1,11 @@
 const express = require('express');
 
-const { httpGetAllTops } = require('../controller/tops.controller');
+const { httpGetTops } = require('../controller/tops.controller');
 
 const topsRouter = express.Router();
 
 const resoure = '/tops';
 
-topsRouter.get(`${resoure}`, httpGetAllTops);
+topsRouter.get(`${resoure}`, httpGetTops);
 
 module.exports = topsRouter;
