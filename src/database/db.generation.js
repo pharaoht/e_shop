@@ -22,29 +22,23 @@ async function runScripts(){
 
         // Execute each SQL file
         for (const file of files) {
-        
+    
             const filePath = path.join(scriptsDirectory, file);
 
             const sql = fs.readFileSync(filePath, 'utf8');
 
-            if(file === 'triggers.script.sql'){
+            const statements = file === 'triggers.script.sql' 
+                ? sql.split(/(?<=END)/i).map(s => s.trim()).filter(s => s.length)
+                    : sql.split(';').map(s => s.trim()).filter(s => s.length)
 
-                console.log('\n Executing statement:', sql);
 
-                await connection.query(sql);
-            }
-            else {
+            for (const statement of statements) {
 
-                const statements = sql.split(';').map(s => s.trim()).filter(s => s.length);
+                if (statement) {
 
-                for (const statement of statements) {
+                    console.log(' \n Executing statement: \n', statement);
 
-                    if (statement) {
-
-                        console.log(' \n Executing statement: \n', statement);
-
-                        await connection.query(statement);
-                    }
+                    await connection.query(statement);
                 }
             }
 
