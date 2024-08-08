@@ -37,7 +37,16 @@ class RedisCacheService {
         
             this.redisClient.connect().then(console.log('*** redis instance created ***')).catch(console.error);
 
+            this.isConnected = true;
+
+            this.cacheKeys = {
+                TOP_SIZES: 'topSizes',
+                TOP_MATERIALS: 'topMaterials',
+                TOP_CATEGORIES: 'topCategories',
+            };
+
             RedisCacheService.instance = this;
+
         }
 
         return RedisCacheService.instance;
@@ -47,7 +56,9 @@ class RedisCacheService {
 
         try {
 
-            return await this.redisClient.get(key)
+            const cacheResult = await this.redisClient.get(key);
+
+            return cacheResult ? JSON.parse(cacheResult) : null;
         }
         catch(error){
 
@@ -59,13 +70,54 @@ class RedisCacheService {
 
         try {
 
-            await this.redisClient.set(key, value)
+            await this.redisClient.set(key, JSON.stringify(value))
         }
         catch(error){
 
             console.error('Error while setting key/value in redis:', error)
         };
     };
+
+    async generateCacheKey(base, params){
+
+        return base + ':' + Object.keys(params).map(key => params[key] && `${key}:${params[key]}`).join(':');
+    };
+
+    async clearAllCluster() {
+
+        try {
+    
+            await this.redisClient.flushAll();
+
+            console.log('All keys in the cluster have been cleared');
+
+            return true;
+
+        } catch (error) {
+    
+            console.error('Error clearing all keys in the cluster:', err);
+
+            throw err;
+
+        }
+    };
+
+    async clearOneCluster(cacheKey){
+
+        try{
+
+            await this.redisClient.del(cacheKey);
+
+            return true
+        }
+        catch(error){
+
+            console.error('Error clearing key in the cluster:', error);
+
+            throw error;
+        }
+    }
+
 };
 
 const instance = new RedisCacheService();
