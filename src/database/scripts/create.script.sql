@@ -1,85 +1,59 @@
--- Create top_sizes table
-CREATE TABLE IF NOT EXISTS top_sizes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    size_label VARCHAR(255) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE Genders (
+    GenderID INT PRIMARY KEY AUTO_INCREMENT,
+    GenderName VARCHAR(255) NOT NULL
 );
 
--- Create top_categories table
-CREATE TABLE IF NOT EXISTS top_categories (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    category_label VARCHAR(255) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY AUTO_INCREMENT,
+    CategoryName VARCHAR(255) NOT NULL,
+    GenderID INT NOT NULL,
+    FOREIGN KEY (GenderID) REFERENCES Genders(GenderID) ON DELETE CASCADE
 );
 
--- Create top_materials table
-CREATE TABLE IF NOT EXISTS top_materials (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    material_label VARCHAR(255) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE Subcategories (
+    SubcategoryID INT PRIMARY KEY AUTO_INCREMENT,
+    SubcategoryName VARCHAR(255) NOT NULL,
+    CategoryID INT NOT NULL,
+    GenderID INT NOT NULL,
+    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID) ON DELETE CASCADE,
+    FOREIGN KEY (GenderID) REFERENCES Genders(GenderID) ON DELETE CASCADE
 );
 
--- Create top_colors table
-CREATE TABLE IF NOT EXISTS top_colors (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    color_label VARCHAR(255) NOT NULL,
-    color_code VARCHAR(100) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE Materials (
+    MaterialID INT PRIMARY KEY AUTO_INCREMENT,
+    MaterialName VARCHAR(255) NOT NULL
 );
 
--- Create top_gender table
-CREATE TABLE IF NOT EXISTS top_gender (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    gender_label VARCHAR(10) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE Colors (
+    ColorID INT PRIMARY KEY AUTO_INCREMENT,
+    ColorName VARCHAR(255) NOT NULL,
+    ColorCode VARCHAR(255) NOT NULL
 );
 
--- Create tops table
-CREATE TABLE IF NOT EXISTS tops (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2),
-    description TEXT NOT NULL,
-    material_description TEXT NOT NULL,
-    top_material_id INT,
-    top_category_id INT,
-    gender_id INT,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (top_material_id) REFERENCES top_materials(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (top_category_id) REFERENCES top_categories(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (gender_id) REFERENCES top_gender(id) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductName VARCHAR(255) NOT NULL,
+    SubcategoryID INT,
+    MaterialID INT,
+    GenderID INT,
+    Price DECIMAL(10, 2) NOT NULL,
+    Description TEXT,
+    FOREIGN KEY (GenderID) REFERENCES Genders(GenderID) ON DELETE SET NULL,
+    FOREIGN KEY (MaterialID) REFERENCES Materials(MaterialID) ON DELETE SET NULL,
+    FOREIGN KEY (SubcategoryID) REFERENCES Subcategories(SubcategoryID) ON DELETE SET NULL
 );
 
--- Create top images join table
-CREATE TABLE IF NOT EXISTS top_images_join_table (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    top_id INT,
-    imageUrl VARCHAR(255) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (top_id) REFERENCES tops(id) ON DELETE CASCADE ON UPDATE CASCADE
+
+
+CREATE TABLE Sizes (
+    SizeID INT PRIMARY KEY AUTO_INCREMENT,
+    SizeName VARCHAR(50) NOT NULL  -- e.g., "S", "M", "L", "XL"
 );
 
--- Create colors join table
-CREATE TABLE IF NOT EXISTS top_colors_join_table (
-    top_id INT,
-    color_id INT,
-    PRIMARY KEY (top_id, color_id),
-    FOREIGN KEY (top_id) REFERENCES tops(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (color_id) REFERENCES top_colors(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
--- Create sizes join table
-CREATE TABLE IF NOT EXISTS top_sizes_join_table (
-    top_id INT,
-    size_id INT,
-    PRIMARY KEY (top_id, size_id),
-    FOREIGN KEY (top_id) REFERENCES tops(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (size_id) REFERENCES top_sizes(id) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE Images (
+    ImageID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductID INT,
+    ImageURL VARCHAR(255) NOT NULL,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );

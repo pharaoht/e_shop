@@ -42,7 +42,7 @@ class RedisCacheService {
             this.cacheKeys = {
                 TOP_SIZES: 'topSizes',
                 TOP_MATERIALS: 'topMaterials',
-                TOP_CATEGORIES: 'topCategories',
+                CATEGORIES: 'categories',
             };
 
             RedisCacheService.instance = this;

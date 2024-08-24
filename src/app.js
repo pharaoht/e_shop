@@ -12,7 +12,7 @@ const app = express();
 
 const apiRouter = express.Router();
 
-const topsRouter = require('./tops/routes/tops.routes');
+const categoryRouter = require('./business/categories/routes/categories.routes');
 
 app.use(cors({ origin: [ 'http://localhost:3000' ], credentials: true }));
 
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', apiRouter);
 
-apiRouter.use(topsRouter);
+apiRouter.use(categoryRouter);
 
 app.get('/' , (req, res) => {
     res.sendFile(path.join(__dirname, 'templates', 'default.html'))

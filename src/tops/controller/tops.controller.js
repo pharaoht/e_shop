@@ -2,31 +2,6 @@ const redisInstance = require('../../services/cache/redis.cache');
 const topsRepository = require('../repository/tops.repository');
 const topDal = require('../dal/tops.dal');
 
-async function httpGetTops(req, res){
-
-    try {
-        redisInstance.clearAllCluster();
-        return res.status(200).json('hi')
-        // const { size, category, gender, materials, color, limit, offset } = req.query;
-
-        // const query = [
-        //     { size: size },
-        //     { category: category },
-        //     { gender: gender },
-        //     { materials: materials },
-        //     { color: color },
-        // ];
-
-        // const { queryString, params } = await topDal.repoQueryString(query, limit, offset);
-
-        // const result = await topsRepository.repoGetTops(queryString, params);
-
-    }
-    catch(error){
-
-    }
-};
-
 async function httpGetTopSizes(req, res){
   
     try{
@@ -101,7 +76,7 @@ async function httpGetTopMaterials(req, res){
 };
 
 async function httpGetTopCategories(req, res){
-    console.time('mytimer')
+   
     try{
 
         if(redisInstance.isConnected){
@@ -109,7 +84,7 @@ async function httpGetTopCategories(req, res){
             const cacheKey = redisInstance.cacheKeys.TOP_CATEGORIES;
 
             const cache = await redisInstance.get(cacheKey);
-            console.timeEnd('mytimer')
+
             if(cache !== null) return res.status(200).json(cache);
 
         };
@@ -125,7 +100,6 @@ async function httpGetTopCategories(req, res){
             await redisInstance.set(cacheKey, dal);
         };
 
-                    console.timeEnd('mytimer')
         return res.status(200).json(dal);
 
     }
@@ -137,9 +111,18 @@ async function httpGetTopCategories(req, res){
     }
 };
 
+async function httpGetFilterTops(req, res){
+
+};
+
+async function httpGetTopById(req, res){
+
+};
+
 module.exports = {
-    httpGetTops,
     httpGetTopSizes,
     httpGetTopMaterials,
-    httpGetTopCategories
-}
+    httpGetTopCategories,
+    httpGetFilterTops,
+    httpGetTopById
+};
