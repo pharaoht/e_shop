@@ -48,3 +48,5 @@ SERVICES src/services
             - Methods of the redis service
                 > get(): to get a key in the redis cluster
                 > set(): to set data in the redis cluster
+
+('shirt'), ('polo_shirt'), ('casual_button_up'), ('formal_button_up'), ('tank_top'), ('hoodie'), ('sweatshirt'), ('suit_jacket'), ('jacket'), ('cardigan'), ('sweater'), ('nightwear'), ('active_wear'), ('dresses'), ('jump_suits');

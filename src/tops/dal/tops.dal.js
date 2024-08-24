@@ -7,32 +7,27 @@ class TopsDataAccessLayer {
         this.updatedAt = 'updatedAt';
     }
     
-    async fromDal( data  ){
-        
-        const dal = [];
+    async fromDal( data ){
 
-        for( const record of data ){
+        const dal = data.map(record => {
 
             const temp = {};
 
-            for(const key in record){
+            for(const key in record) {
 
                 const value = record[key];
-    
-                if(moment(value, moment.ISO_8601, true).isValid()){
 
-                    temp[key] = moment.utc(value).format('MM/DD/YY HH:mm');
-                }
-                else {
+                const momentValue = moment(value, moment.ISO_8601, true);
 
-                    temp[key] = value;
-                }
-            };
+                // Only process and format if it's a valid date
+                temp[key] = momentValue.isValid() ? momentValue.utc().format('MM/DD/YY HH:mm') : value;
+            }
 
-            dal.push(temp);
-        };
-        
+            return temp;
+        });
+
         return dal;
+
     }
     
     async toDal(){}
