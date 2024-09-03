@@ -8,25 +8,25 @@ async function httpGetCategories(req, res){
 
         const { genderId } = req.query;
 
-        if(redisInstance.isConnected){
+        // if(redisInstance.isConnected){
 
-            const cacheKey = redisInstance.cacheKeys.CATEGORIES;
+        //     const cacheKey = redisInstance.cacheKeys.CATEGORIES;
     
-            const cache = await redisInstance.get(cacheKey);
+        //     const cache = await redisInstance.get(`${cacheKey}genderId${genderId}`);
 
-            if(cache !== null) return res.status(200).json(cache);
-        }
+        //     if(cache !== null) return res.status(200).json(cache);
+        // }
 
         const result = await categoryRepository.repoGetSubCategoriesWParent(genderId);
 
         const dal = await categoryDal.fromDal(result);
 
-        if(redisInstance.isConnected){
+        // if(redisInstance.isConnected){
 
-            const cacheKey = redisInstance.cacheKeys.CATEGORIES;
+        //     const cacheKey = redisInstance.cacheKeys.CATEGORIES;
 
-            await redisInstance.set(`${cacheKey}genderId${genderId}`, dal);
-        }
+        //     await redisInstance.set(`${cacheKey}genderId${genderId}`, dal);
+        // }
 
         return res.status(200).json(dal);
     }

@@ -48,7 +48,11 @@ class ImageUploadService {
                 imageUrl,
                 {
                     folder: folder,
-                    resource_type: 'image'
+                    resource_type: 'image',
+                    transformation: [
+                        { width: 540, height: 960, crop: 'fill' },
+                        { fetch_format: 'auto', format: 'avif' }
+                    ]
                 }
             );
 

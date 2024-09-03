@@ -1,0 +1,4 @@
+class ProductDal {
+    
+    constructor(){}
+}

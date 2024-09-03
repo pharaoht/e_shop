@@ -14,6 +14,8 @@ const apiRouter = express.Router();
 
 const categoryRouter = require('./business/categories/routes/categories.routes');
 
+const productsRouter = require('./business/products/routes/products.routes');
+
 app.use(cors({ origin: [ 'http://localhost:3000', 'https://e-comm-green.vercel.app' ], credentials: true }));
 
 app.use(express.json());
@@ -23,6 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRouter);
 
 apiRouter.use(categoryRouter);
+
+apiRouter.use(productsRouter)
 
 app.get('/' , (req, res) => {
     res.sendFile(path.join(__dirname, 'templates', 'default.html'))

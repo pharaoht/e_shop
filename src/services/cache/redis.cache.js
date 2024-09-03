@@ -39,11 +39,13 @@ class RedisCacheService {
 
             this.isConnected = true;
 
-            this.cacheKeys = {
+            this.cacheKeys = Object.freeze({
                 TOP_SIZES: 'topSizes',
                 TOP_MATERIALS: 'topMaterials',
                 CATEGORIES: 'categories',
-            };
+                PRODUCTS: 'products'
+
+            });
 
             RedisCacheService.instance = this;
 
