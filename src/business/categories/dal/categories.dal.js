@@ -7,12 +7,13 @@ class CategoryDal {
         const cats = [];
 
         for (const itm of data) {
- 
+  
             const existingCategoryIndex = cats.findIndex(cat => cat.categoryName === itm.CategoryName);
 
             if (existingCategoryIndex === -1) {
                 
                 cats.push({
+                    categoryId: itm.CategoryID,
                     categoryName: itm.CategoryName,
                     subCategories: [{ id: itm.SubcategoryID, subCategoryName: itm.SubcategoryName }]
                 });

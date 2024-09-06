@@ -39,11 +39,13 @@ class RedisCacheService {
 
             this.isConnected = true;
 
-            this.cacheKeys = {
+            this.cacheKeys = Object.freeze({
                 TOP_SIZES: 'topSizes',
                 TOP_MATERIALS: 'topMaterials',
                 CATEGORIES: 'categories',
-            };
+                PRODUCTS: 'products'
+
+            });
 
             RedisCacheService.instance = this;
 
@@ -80,7 +82,12 @@ class RedisCacheService {
 
     async generateCacheKey(base, params){
 
-        return base + ':' + Object.keys(params).map(key => params[key] && `${key}:${params[key]}`).join(':');
+        const str = Object.entries(params)
+            .filter(([key, value]) => value !== undefined)
+                .map(([key, value]) => `:${key}${value}`)
+                    .join('');
+
+        return base + str;
     };
 
     async clearAllCluster() {
