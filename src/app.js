@@ -8,6 +8,8 @@ const redis = require('./services/cache/redis.cache');
 
 const cors = require('cors');
 
+const cookieMiddleware = require('./middleware/cookies/cookies.middleware');
+
 const app = express();
 
 const apiRouter = express.Router();
@@ -15,6 +17,8 @@ const apiRouter = express.Router();
 const categoryRouter = require('./business/categories/routes/categories.routes');
 
 const productsRouter = require('./business/products/routes/products.routes');
+
+app.use(cookieMiddleware());
 
 app.use(cors({ origin: [ 'http://localhost:3000', 'https://e-comm-green.vercel.app' ], credentials: true }));
 

@@ -81,6 +81,46 @@ class ProductsRepository {
         return data;
 
     }
+
+    async repoGetProductById( id ){
+
+        const query = `
+            SELECT 
+                p.ProductID,
+                p.ProductName,
+                p.Price,
+                p.Description,
+                p.CreatedAt,
+                p.UpdatedAt,
+                g.GenderName AS GenderName,
+                m.MaterialName AS MaterialName,
+                s.SubcategoryName AS SubcategoryName,
+                c.CategoryName AS CategoryName,
+                i.ImageURL AS ImageUrl,
+                GROUP_CONCAT(clr.ColorCode SEPARATOR ', ') AS ColorCodes,
+                GROUP_CONCAT(clr.ColorName SEPARATOR ', ') AS ColorNames
+            FROM 
+                ${this._tableName} p
+                INNER JOIN (
+                    SELECT ProductID, MIN(ImageID) AS FirstImageID
+                    FROM Images
+                    GROUP BY ProductID
+                ) AS first_image ON p.ProductID = first_image.ProductID
+                INNER JOIN Images i ON first_image.FirstImageID = i.ImageID
+                INNER JOIN Genders g ON p.GenderID = g.GenderID
+                INNER JOIN Materials m ON p.MaterialID = m.MaterialID
+                INNER JOIN Subcategories s ON p.SubcategoryID = s.SubcategoryID
+                INNER JOIN Categories c ON p.CategoryID = c.CategoryID
+                LEFT JOIN ProductColors pc ON p.ProductID = pc.ProductID
+                LEFT JOIN Colors clr ON pc.ColorID = clr.ColorID
+            WHERE p.ProductID = ?
+            GROUP BY p.ProductID
+        `;
+
+        const [ data ] = await db.execute(query, [ id ]);
+
+        return data;
+    }
 };
 
 const initProducts = () => {
