@@ -11,7 +11,7 @@ class SizeRepository {
         const query = `
             SELECT 
                 SizeID,
-                SizeName,
+                SizeName
             FROM ${this._tableName}
         `;
 

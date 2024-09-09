@@ -53,7 +53,7 @@ async function httpGetProducts(req, res){
     }
 }
 
-async function httpGetOneProduct(req, res){
+async function httpGetProductById(req, res){
 
     try {
 
@@ -63,9 +63,9 @@ async function httpGetOneProduct(req, res){
 
         const productsRepo = initProducts();
 
-        const result = productsRepo.repoGetProductById(id);
+        const result = await productsRepo.repoGetProductById(id);
 
-        const dal = productDal.fromDal(result);
+        const [ dal ] = await productDal.fromDal(result);
 
         return res.status(200).json(dal);
 
@@ -84,5 +84,5 @@ async function httpCreateProduct(req, res){
 
 module.exports = {
     httpGetProducts,
-    httpGetOneProduct
+    httpGetProductById
 }

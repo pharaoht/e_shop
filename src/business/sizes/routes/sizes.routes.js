@@ -7,3 +7,5 @@ const sizesRouter = express.Router();
 const resource = '/sizes';
 
 sizesRouter.get(`${resource}`, httpGetAllSizes);
+
+module.exports = sizesRouter;

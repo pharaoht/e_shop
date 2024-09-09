@@ -1,17 +1,23 @@
+const initImageDal = require("../dal/images.dal");
+const initImageRepo = require("../repository/images.repository");
+
 async function httpGetImagesById(req, res) {
     
     try {
 
         const { id } = req.params;
 
-        //init repo
+        if(!id) throw new Error('No Product Id')
 
-        //get images repo method
+        const imageRepo = initImageRepo();
 
-        //dal
+        const imageDal = initImageDal();
 
+        const result = await imageRepo.repoGetImagesById(id);
 
-        //return
+        const dal = await imageDal.fromDal(result);
+
+        return res.status(200).json(dal);
         
     } catch (error) {
 

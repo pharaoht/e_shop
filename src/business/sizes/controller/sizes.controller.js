@@ -7,7 +7,7 @@ async function httpGetAllSizes(req, res){
 
         const sizeRepository = initSizeRepository();
 
-        const result = sizeRepository.repoGetAllSizes();
+        const result = await sizeRepository.repoGetAllSizes();
 
         return res.status(200).json(result);
 
