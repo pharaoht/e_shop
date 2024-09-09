@@ -11,7 +11,7 @@ class CategoryDal {
             const existingCategoryIndex = cats.findIndex(cat => cat.categoryName === itm.CategoryName);
 
             if (existingCategoryIndex === -1) {
-                
+                console.log(itm.CategoryID)
                 cats.push({
                     categoryId: itm.CategoryID,
                     categoryName: itm.CategoryName,

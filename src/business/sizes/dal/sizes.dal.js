@@ -1,0 +1,5 @@
+class SizeDal {
+    constructor(){}
+
+    fromDal(){}
+}

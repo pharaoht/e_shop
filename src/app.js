@@ -18,6 +18,9 @@ const categoryRouter = require('./business/categories/routes/categories.routes')
 
 const productsRouter = require('./business/products/routes/products.routes');
 
+const imagesRouter = require('./business/images/routes/images.routes');
+const sizesRouter = require('./business/sizes/routes/sizes.routes');
+
 app.use(cookieMiddleware());
 
 app.use(cors({ origin: [ 'http://localhost:3000', 'https://e-comm-green.vercel.app' ], credentials: true }));
@@ -30,7 +33,11 @@ app.use('/api', apiRouter);
 
 apiRouter.use(categoryRouter);
 
-apiRouter.use(productsRouter)
+apiRouter.use(productsRouter);
+
+apiRouter.use(imagesRouter);
+
+apiRouter.use(sizesRouter);
 
 app.get('/' , (req, res) => {
     res.sendFile(path.join(__dirname, 'templates', 'default.html'))
