@@ -4,7 +4,7 @@ INSERT INTO e_shop.Sizes (SizeName) VALUES ('x_small'), ('small'), ('medium'), (
 
 INSERT INTO e_shop.Categories (CategoryName, GenderID) VALUES ('Dresses', 1), ('Tops & T-Shirts', 3), ('Blouses', 1), ('Jeans', 3), ('Pants', 3), ('Cardigans & Sweaters', 3), ('Blazers & Vests', 3), ('Jacket & Coats', 3), ('Shorts', 3), ('Skirts', 1), ('Jumpsuits & Overalls', 3), ('Swimwear & Beachwear', 3), ('Sleepwear', 3), ('Socks', 3), ('Hoodies & Sweatshirts', 3);
 
-INSERT INTO e_shop.Materials (MaterialName) VALUES ('cotton'), ('boucle'), ('cord'), ('denim'), ('french_terry'), ('terry_cloth'), ('jersey'), ('linen'), ('lyocell'), ('merino'), ('mesh'), ('oxford'), ('pique'), ('poplin'), ('ripstop'), ('scuba'), ('seersucker'), ('silk'), ('twill'), ('viscose'), ('wool');
+INSERT INTO e_shop.Materials (MaterialName) VALUES ('cotton'), ('boucle'), ('cord'), ('denim'), ('french_terry'), ('terry_cloth'), ('jersey'), ('linen'), ('lyocell'), ('merino'), ('mesh'), ('oxford'), ('pique'), ('poplin'), ('ripstop'), ('scuba'), ('seersucker'), ('silk'), ('twill'), ('viscose'), ('wool'), ('polyester');
 
 INSERT INTO e_shop.Colors (ColorName, ColorCode) VALUES ('red', '#FF0000'), ('green', '#00FF00'), ('blue', '#0000FF'), ('yellow', '#FFFF00'), ('orange', '#FFA500'), ('purple', '#800080'), ('pink', '#FFC0CB'), ('brown', '#A52A2A'), ('black', '#000000'), ('white', '#FFFFFF'), ('gray', '#808080'), ('cyan', '#00FFFF'), ('magenta', '#FF00FF'), ('lime', '#00FF00'), ('maroon', '#800000'), ('navy', '#000080'), ('olive', '#808000'), ('teal', '#008080'), ('silver', '#C0C0C0'), ('gold', '#FFD700');
 
