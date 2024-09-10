@@ -1,4 +1,5 @@
 const redisInstance = require('../../../services/cache/redis.cache');
+const initSizeDal = require('../dal/sizes.dal');
 const initSizeRepository = require('../repository/sizes.repository');
 
 async function httpGetAllSizes(req, res){
@@ -7,9 +8,13 @@ async function httpGetAllSizes(req, res){
 
         const sizeRepository = initSizeRepository();
 
+        const sizeDal = initSizeDal();
+
         const result = await sizeRepository.repoGetAllSizes();
 
-        return res.status(200).json(result);
+        const dal = await sizeDal.fromDal(result);
+
+        return res.status(200).json(dal);
 
     }
     catch(error){

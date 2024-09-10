@@ -15,16 +15,16 @@ async function httpGetProducts(req, res){
             categoryId,
         };
 
-        if(redisInstance.isConnected){
+        // if(redisInstance.isConnected){
 
-            const cacheKey = redisInstance.cacheKeys.PRODUCTS;
+        //     const cacheKey = redisInstance.cacheKeys.PRODUCTS;
 
-            const generated = await redisInstance.generateCacheKey(cacheKey, params);
+        //     const generated = await redisInstance.generateCacheKey(cacheKey, params);
 
-            const cache = await redisInstance.get(generated);
+        //     const cache = await redisInstance.get(generated);
 
-            if(cache !== null) return res.status(200).json(cache);
-        }
+        //     if(cache !== null) return res.status(200).json(cache);
+        // }
 
         const productsRepo = initProducts();
 

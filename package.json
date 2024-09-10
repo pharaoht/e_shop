@@ -11,6 +11,8 @@
     "start-docker": "sh ./docker-start.sh"
   },
   "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
     "cloudinary": "^2.2.0",
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
