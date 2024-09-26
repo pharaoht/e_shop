@@ -8,7 +8,9 @@ function setUpCookieMiddleware(){
         {
             name: process.env.COOKIE_NAME,
             maxAge: 24 * 60 * 60 * 1000,
-            keys: [ 'test' ]
+            keys: [ 'test' ],
+            httpOnly: true,
+            sameSite: 'lax'
         }
     );
 };

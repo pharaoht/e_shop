@@ -88,9 +88,9 @@ CREATE TABLE Carts (
 CREATE TABLE CartItems (
     ID SERIAL PRIMARY KEY,
     CartID INT REFERENCES Carts(ID) ON DELETE CASCADE,   -- Links to Carts table
-    ProductID INT REFERENCES Products(ID),               -- Links to Products table
-    Quantity INT NOT NULL CHECK (Quantity > 0),          -- Number of products in the cart
-    PriceAtAddition DECIMAL(10, 2) NOT NULL,             -- Price when added to the cart
+    ProductID INT REFERENCES Products(ID),               -- Links to Products table          -- Number of products in the cart
+    ColorID INT REFERENCES Colors(ID),
+    SizeID INT REFERENCES Sizes(ID),
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
