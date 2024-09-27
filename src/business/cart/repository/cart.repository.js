@@ -62,10 +62,18 @@ class CartRepository {
                 ExpiresAt,
                 c.CreatedAt,
                 c.UpdatedAt,
-                ci.Price,
-                ci.
-            FROM ${this._cartTable} c
+                ci.ProductID,
+                ci.ColorID,
+                ci.SizeID,
+                p.ProductName,
+                p.Price,
+                co.ColorName,
+                s.SizeName
+            FROM Carts c
             INNER JOIN CartItems ci ON c.ID = ci.CartID
+            INNER JOIN Products p ON ci.ProductID = p.ProductID
+            INNER JOIN Colors co ON ci.ColorID = co.ColorID
+            INNER JOIN Sizes s ON ci.SizeID = s.SizeID
             WHERE c.SessionID = ? OR c.UserID = ?
         `;
 

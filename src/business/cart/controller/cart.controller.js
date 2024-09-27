@@ -1,12 +1,7 @@
+const initCartDal = require("../dal/cart.dal");
 const initCartRepo = require("../repository/cart.repository");
 
 async function httpAddtoCart(req, res){
-
-    const test = {
-        colorId:1,
-        sizeId:1,
-        productId: 1,
-    }
     
     try{
 
@@ -17,27 +12,30 @@ async function httpAddtoCart(req, res){
 
         const cartRepository = initCartRepo();
 
+        const cartDal = initCartDal();
+
         const isExist = await cartRepository.repoCheckIfCartExist(sessionId, '');
 
         if(!isExist){
 
             const newCartId = await cartRepository.repoCreateNewCart(sessionId, null);
-
+            
             //body and parentCart id
-            const result = await cartRepository.repoAddToCart(newCartId, test.productId, test.colorId, test.sizeId);
+            await cartRepository.repoAddToCart(newCartId.id, body.productId, body.colorId, body.sizeId);
    
         }
         else{
 
-            const result = await cartRepository.repoAddToCart(isExist.ID, test.productId, test.price);
-
+            await cartRepository.repoAddToCart(isExist.ID, body.productId, body.colorId, body.sizeId);
             
         }
 
         //if cart was found add to cart
-        const newCart = await cartRepository.repoGetCartBySessionId(sessionId);
+        const result = await cartRepository.repoGetCartBySessionId(sessionId);
 
-        return res.status(200).json(newCart);
+        const dal = await cartDal.fromDto(result);
+
+        return res.status(200).json(dal);
 
         //get cart and return to client
     }
@@ -53,6 +51,19 @@ async function httpGetCart(req, res){
     
     try{
 
+        const sessionId = req.session.guestId;
+
+        const userId = req.session.userId;
+
+        const cartDal = initCartDal();
+
+        const cartRepository = initCartRepo();
+
+        const result = await cartRepository.repoGetCartBySessionId(sessionId);
+
+        const dal = await cartDal.fromDto(result);
+
+        return res.status(200).json(dal);
     }
     catch(error){
 
