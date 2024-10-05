@@ -53,7 +53,8 @@ apiRouter.use(colorsRouter);
 apiRouter.use(cartRouter);
 
 app.get('/' , (req, res) => {
-
+    const ip = req.socket.remoteAddress
+    console.log(ip)
     res.sendFile(path.join(__dirname, 'templates', 'default.html'))
 });
 

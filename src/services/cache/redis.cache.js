@@ -127,8 +127,8 @@ class RedisCacheService {
 
 };
 
-// const instance = new RedisCacheService();
+const instance = new RedisCacheService();
     
-// Object.freeze(instance);
-const instance = {}
+Object.freeze(instance);
+
 module.exports = instance;

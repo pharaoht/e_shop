@@ -1,6 +1,12 @@
 const initCartDal = require("../dal/cart.dal");
 const initCartRepo = require("../repository/cart.repository");
 
+const test = {
+    colorId: 1,
+    sizeId:1,
+    productId:1
+};
+
 async function httpAddtoCart(req, res){
     
     try{
@@ -25,7 +31,7 @@ async function httpAddtoCart(req, res){
    
         }
         else{
-
+            console.log(body)
             await cartRepository.repoAddToCart(isExist.ID, body.productId, body.colorId, body.sizeId);
             
         }
@@ -37,7 +43,6 @@ async function httpAddtoCart(req, res){
 
         return res.status(200).json(dal);
 
-        //get cart and return to client
     }
     catch(error){
 
@@ -48,7 +53,7 @@ async function httpAddtoCart(req, res){
 };
 
 async function httpGetCart(req, res){
-    
+
     try{
 
         const sessionId = req.session.guestId;
