@@ -38,7 +38,6 @@ class ProductsRepository {
         }
     }
 
-
     async repoGetAllProducts( params ){
 
         const { whereClause, queryParams } = this.paramBuilder(params);
@@ -121,11 +120,23 @@ class ProductsRepository {
 
         return data;
     }
+
+    async repoCreateProduct(productName, subCatId, materialId, genderId, price, desc, catId){
+
+        const query = `
+            INSERT INTO ${this._tableName} (ProductName, SubcategoryID, MaterialID, GenderID, Price, Description, CategoryID)
+            VALUES (?,?,?,?,?,?,?);
+        `;
+
+        const [ result ] = await db.execute(query, [productName, subCatId, materialId, genderId, price, desc, catId]);
+
+        return result;
+    }
 };
 
-const initProducts = () => {
+const initProductsRepository = () => {
     return new ProductsRepository();
 };
 
 
-module.exports = initProducts;
+module.exports = initProductsRepository;

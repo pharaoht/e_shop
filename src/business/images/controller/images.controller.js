@@ -1,5 +1,5 @@
 const initImageDal = require("../dal/images.dal");
-const initImageRepo = require("../repository/images.repository");
+const initImageRepository = require("../repository/images.repository");
 
 async function httpGetImagesById(req, res) {
     
@@ -9,7 +9,7 @@ async function httpGetImagesById(req, res) {
 
         if(!id) throw new Error('No Product Id')
 
-        const imageRepo = initImageRepo();
+        const imageRepo = initImageRepository();
 
         const imageDal = initImageDal();
 
@@ -27,6 +27,8 @@ async function httpGetImagesById(req, res) {
     }
 };
 
+
 module.exports = {
-    httpGetImagesById
+    httpGetImagesById,
+    mapImagesToProduct,
 }

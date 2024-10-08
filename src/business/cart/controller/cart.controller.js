@@ -31,7 +31,7 @@ async function httpAddtoCart(req, res){
    
         }
         else{
-            console.log(body)
+
             await cartRepository.repoAddToCart(isExist.ID, body.productId, body.colorId, body.sizeId);
             
         }

@@ -25,6 +25,17 @@ class ColorsRepository {
 
         return data;
     }
+
+    async repoCreateProductColor(productId, colorId){
+
+        const query = `
+            INSERT INTO ${this.productColorsTableName} (ProductColors.ProductID, ProductColors.ColorID) VALUES (?,?);
+        `;
+
+        const [ result ] = await db.execute(query, [productId, colorId]);
+
+        return result;
+    }
 };
 
 const initColorsRepository = () => {

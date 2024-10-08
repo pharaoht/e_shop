@@ -67,6 +67,10 @@ class ImageUploadService {
             throw error;
         }
     }
+};
+
+const initImageUploadService = () => {
+    return new ImageUploadService()
 }
 
-module.exports = ImageUploadService;
+module.exports = initImageUploadService;

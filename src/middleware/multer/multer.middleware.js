@@ -18,18 +18,18 @@ const multerUpload = multer({
 
     storage: storage,
 
-    limits: { fileSize: 2000000 }, // 2MB limit
+    limits: { fileSize: 5000000 }, // 5MB limit
 
     fileFilter: function (req, file, cb) {
 
         checkFileType(file, cb);
     }
 
-}).single('file');
+}).array('files', 10);
 
 function checkFileType(file, cb) {
 
-    const filetypes = /jpeg|jpg|png|gif/;
+    const filetypes = /jpeg|jpg|png|gif|avif/;
 
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 

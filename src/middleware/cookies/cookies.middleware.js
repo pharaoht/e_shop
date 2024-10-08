@@ -10,7 +10,6 @@ function setUpCookieMiddleware(){
             maxAge: 24 * 60 * 60 * 1000,
             keys: [ 'test' ],
             httpOnly: true,
-            sameSite: 'lax'
         }
     );
 };

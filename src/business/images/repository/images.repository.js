@@ -18,10 +18,22 @@ class ImageRepository {
 
         return data
     }
+
+    async repoCreateImage(productId, imageUrl){
+
+        const query = `
+            INSERT INTO ${this._tableName} (ProductID, ImageURL)
+            VALUES (?,?)
+        `;
+
+        const [ result ] = await db.execute(query, [productId, imageUrl]);
+
+        return result;
+    }
 };
 
-const initImageRepo = () => {
+const initImageRepository = () => {
     return new ImageRepository;
 }
 
-module.exports = initImageRepo;
+module.exports = initImageRepository;
