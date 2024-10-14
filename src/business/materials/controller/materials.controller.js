@@ -6,17 +6,17 @@ async function httpGetMaterials(req, res) {
     
     try{
 
-        if(redisClient.isConnected){
+        // if(redisClient.isConnected){
 
-            const materialCacheKey = redisClient.cacheKeys.MATERIALS;
+        //     const materialCacheKey = redisClient.cacheKeys.MATERIALS;
 
-            const cache = await redisClient.get(materialCacheKey);
+        //     const cache = await redisClient.get(materialCacheKey);
 
-            if(cache){
+        //     if(cache){
 
-                return res.status(200).json(cache);
-            }
-        }
+        //         return res.status(200).json(cache);
+        //     }
+        // }
 
         const materialsRepo = initMaterialsRepository();
     
@@ -31,7 +31,7 @@ async function httpGetMaterials(req, res) {
             await redisClient.set(redisClient.cacheKeys.MATERIALS, dal);
         }
 
-        return res.status(200).json(dal)
+        return res.status(200).json(dal);
 
     }
     catch(error){

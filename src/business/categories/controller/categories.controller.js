@@ -19,7 +19,7 @@ async function httpGetCategories(req, res){
 
         const result = await categoryRepository.repoGetSubCategoriesWParent(genderId);
 
-        const dal = await categoryDal.fromDal(result);
+        const dal = await categoryDal.fromDal(result, true);
 
         if(redisInstance.isConnected){
 
@@ -38,6 +38,50 @@ async function httpGetCategories(req, res){
     }
 };
 
+async function httpGetSubCategoriesByCategoryId(req, res){
+
+    try {
+
+        const genderId = req.params.genderId;
+
+        const catId = req.params.catId;
+
+        const result = await categoryRepository.repoGetSubCategoriesByCategoryId(catId, genderId);
+
+        const dal = await categoryDal.fromDal(result, false);
+
+        return res.status(200).json(dal)
+    }
+    catch(error){
+
+        console.error(error);
+
+        return res.status(400).json({'error': error});  
+    }
+}
+
+async function httpGetCategoriesByGenderId(req, res){
+
+    try {
+
+        const genderId = req.params.genderId;
+
+        const result = await categoryRepository.repoGetCategoriesByGenderId(genderId);
+
+        const dal = await categoryDal.fromDal(result, false);
+
+        return res.status(200).json(dal)
+    }
+    catch(error){
+
+        console.error(error);
+
+        return res.status(400).json({'error': error});  
+    }
+}
+
 module.exports = {
-    httpGetCategories
+    httpGetCategories,
+    httpGetCategoriesByGenderId,
+    httpGetSubCategoriesByCategoryId
 };

@@ -10,6 +10,35 @@ class CategoryRepository {
 
     async repoGetAllCategories(){};
 
+    async repoGetCategoriesByGenderId( genderId ){
+
+        const query = `
+            SELECT *
+            FROM ${this._tableName}
+            WHERE Categories.GenderID IN (?, 3)
+        `;
+
+        const [ result ] = await db.execute(query, [genderId]);
+
+        return result;
+    }
+
+    async repoGetSubCategoriesByCategoryId( categoryId, genderId ){
+
+        const query = `
+            SELECT 
+                SubcategoryID,
+                SubcategoryName
+            FROM ${this._subTableName}
+            WHERE Subcategories.CategoryID = ? AND Subcategories.GenderID = ?
+    
+        `;
+
+        const [ result ] = await db.execute(query, [categoryId, genderId]);
+
+        return result;
+    }
+
     async repoGetSubCategoriesWParent( genderTypes ){
 
         const query = `

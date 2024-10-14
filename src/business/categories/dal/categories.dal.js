@@ -2,8 +2,25 @@ class CategoryDal {
 
     constructor(){}
 
-    async fromDal( data ){
+    async fromDal( data, format ){
 
+        if(format){
+            return this.formatCatsWSubCats(data)
+        }
+
+        const dal = data.map((itm) => {
+
+            return {
+                value: itm.CategoryID || itm.SubcategoryID,
+                displayName: itm.CategoryName || itm.SubcategoryName
+            }
+        });
+
+        return dal;
+    };
+
+    formatCatsWSubCats(data){
+    
         const cats = [];
 
         for (const itm of data) {
@@ -27,7 +44,7 @@ class CategoryDal {
         }
 
         return cats;
-    };
+    }
 
     async toDal(){}
 };
