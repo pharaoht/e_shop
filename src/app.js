@@ -27,6 +27,7 @@ const sizesRouter = require('./business/sizes/routes/sizes.routes');
 const colorsRouter = require('./business/colors/routes/colors.routes');
 
 const cartRouter = require('./business/cart/routes/cart.routes');
+const materialsRouter = require('./business/materials/routes/materials.routes');
 
 app.use(cookieMiddleware());
 
@@ -51,6 +52,8 @@ apiRouter.use(sizesRouter);
 apiRouter.use(colorsRouter);
 
 apiRouter.use(cartRouter);
+
+apiRouter.use(materialsRouter);
 
 app.get('/' , (req, res) => {
     const ip = req.socket.remoteAddress

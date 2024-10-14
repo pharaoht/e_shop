@@ -41,10 +41,9 @@ class RedisCacheService {
 
             this.cacheKeys = Object.freeze({
                 TOP_SIZES: 'topSizes',
-                TOP_MATERIALS: 'topMaterials',
+                MATERIALS: 'materials',
                 CATEGORIES: 'categories',
                 PRODUCTS: 'products'
-
             });
 
             RedisCacheService.instance = this;

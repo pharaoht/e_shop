@@ -30,5 +30,4 @@ async function httpGetImagesById(req, res) {
 
 module.exports = {
     httpGetImagesById,
-    mapImagesToProduct,
 }
