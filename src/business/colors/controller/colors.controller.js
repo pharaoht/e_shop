@@ -27,6 +27,30 @@ async function httpGetColorsByProductId(req, res){
     }
 };
 
+async function httpGetColors(req, res) {
+    
+    try{
+
+        const colorRepo = initColorsRepository();
+
+        const colorDal = initColorsDal();
+
+        const result = await colorRepo.repoGetColors();
+
+        const dal = await colorDal.fromDal(result);
+
+        return res.status(200).json(dal);
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        return res.status(400).json(error);
+    }
+}
+
 module.exports = {
     httpGetColorsByProductId,
+    httpGetColors
 }

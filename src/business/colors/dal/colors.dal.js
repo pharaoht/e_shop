@@ -10,7 +10,7 @@ class ColorsDataAccessLayer {
                 productId: itm.ProductID,
                 colorId: itm.ColorID,
                 colorName: itm.ColorName,
-                colorCode: itm.ColorCode
+                colorCode: itm.ColorCode,
             }
         });
 

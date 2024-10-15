@@ -6,6 +6,7 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
         cb(null, path.join(__dirname, '../../images'));
+        
     },
 
     filename: function (req, file, cb) {
@@ -32,7 +33,7 @@ function checkFileType(file, cb) {
     const filetypes = /jpeg|jpg|png|gif|avif/;
 
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-
+    
     const mimetype = filetypes.test(file.mimetype);
 
     if (mimetype && extname) {

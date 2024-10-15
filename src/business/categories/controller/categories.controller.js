@@ -50,7 +50,7 @@ async function httpGetSubCategoriesByCategoryId(req, res){
 
         const dal = await categoryDal.fromDal(result, false);
 
-        return res.status(200).json(dal)
+        return res.status(200).json(dal);
     }
     catch(error){
 

@@ -81,6 +81,19 @@ class CartRepository {
 
         return result;
     }
+
+    async deleteExpiredCarts(){
+
+        const query = `
+            DELETE 
+            FROM ${this._cartTable}
+            WHERE ExpiresAt < NOW()
+        `;
+
+        const [ result ] = await db.execute(query);
+
+        return result;
+    }
 };
 
 

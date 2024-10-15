@@ -6,6 +6,8 @@ const pool = require('./database/db.connection');
 //init redis cluster
 const redis = require('./services/cache/redis.cache');
 
+const cronService = require('./services/cron/scheduler.cron');
+
 const cors = require('cors');
 
 const cookieMiddleware = require('./middleware/cookies/cookies.middleware');
@@ -27,6 +29,7 @@ const sizesRouter = require('./business/sizes/routes/sizes.routes');
 const colorsRouter = require('./business/colors/routes/colors.routes');
 
 const cartRouter = require('./business/cart/routes/cart.routes');
+
 const materialsRouter = require('./business/materials/routes/materials.routes');
 
 app.use(cookieMiddleware());
