@@ -7,6 +7,18 @@ class ColorsRepository {
         this.colorsTableName = 'Colors';
     };
 
+    async repoGetColors(){
+
+        const query = `
+            SELECT *
+            FROM ${this.colorsTableName}
+        `;
+
+        const [ result ] = await db.execute(query);
+
+        return result;
+    }
+
     async repoGetColorsByProductId(id){
 
         const query = `

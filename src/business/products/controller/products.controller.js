@@ -84,17 +84,6 @@ async function httpGetProductById(req, res){
 }
 
 async function httpCreateProduct(req, res){
-    
-    const test = {
-        productName: 'test',
-        subCatId: '1',
-        materialId:'1',
-        genderId:'1',
-        price:'34.44',
-        desc:'hi',
-        catId:'2',
-        colorIds: '1,2,3'
-    };
 
     try {
 
@@ -113,11 +102,11 @@ async function httpCreateProduct(req, res){
         if (req.files) filepaths = req.files.map(file => file.path);
 
         if (filepaths.length > 0) {
-
+            console.log('1')
             for (const filepath of filepaths) {
 
                 const fileUrl = await uploadImageHelper(filepath);
-
+                console.log('2')
                 fileUrls.push(fileUrl);
             }
         };
@@ -132,14 +121,17 @@ async function httpCreateProduct(req, res){
             body.catId
         );
 
-        const color = await colorRepo.repoCreateProductColor(
-            result.id,
-            body.colorIds
-        );
+        for(const colorId of body.colorIds.split(',')){
+
+            await colorRepo.repoCreateProductColor(
+                result.insertId,
+                colorId
+            );
+        };
 
         //images
         for(const url of fileUrls){
-            await imageRepo.repoCreateImage(result.id, url)
+            await imageRepo.repoCreateImage(result.insertId, url)
         }
         
         return res.status(200).json('success');
