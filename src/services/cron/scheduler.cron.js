@@ -31,7 +31,7 @@ class CronScheduleService {
 
     scheduleCronJob(){
         //this is run at min 0 hr 0 everyday
-        cron.schedule('0 0 * * * *', () => {
+        cron.schedule('0 0 0 * * *', () => {
             this.deleteExpiredCarts()
         });
 
