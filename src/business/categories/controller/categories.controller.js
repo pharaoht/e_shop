@@ -21,6 +21,8 @@ async function httpGetCategories(req, res){
 
         const dal = await categoryDal.fromDal(result, true);
 
+        console.log(dal);
+        
         if(redisInstance.isConnected){
 
             const cacheKey = redisInstance.cacheKeys.CATEGORIES;
