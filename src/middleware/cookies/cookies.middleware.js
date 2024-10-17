@@ -8,8 +8,9 @@ function setUpCookieMiddleware(){
         {
             name: process.env.COOKIE_NAME,
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            keys: [ 'guestSession' ],
+            keys: [ process.env.COOKIE_KEY ],
             httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
         }
     );
 };
