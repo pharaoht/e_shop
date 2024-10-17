@@ -13,9 +13,9 @@ async function httpAddtoCart(req, res){
         const cartRepository = initCartRepo();
 
         const cartDal = initCartDal();
-
+        console.log(sessionId, 'addtoCArt')
         const isExist = await cartRepository.repoCheckIfCartExist(sessionId, '');
-
+        console.log(isExist, sessionId)
         if(!isExist){
 
             const newCartId = await cartRepository.repoCreateNewCart(sessionId, null);
