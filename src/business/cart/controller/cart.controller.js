@@ -8,7 +8,6 @@ async function httpAddtoCart(req, res){
         //color, size, productId, price,
         const body = req.body;
 
-        console.log(req.body)
         const sessionId = req.session.guestId;
 
         const cartRepository = initCartRepo();
@@ -63,6 +62,7 @@ async function httpGetCart(req, res){
 
         const dal = await cartDal.fromDto(result);
 
+        console.log(dal);
         return res.status(200).json(dal);
     }
     catch(error){
