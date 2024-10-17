@@ -9,7 +9,7 @@ async function httpGetCategories(req, res){
         const { genderId } = req.query;
 
         if(redisInstance.isConnected){
-
+            console.log('ceche')
             const cacheKey = redisInstance.cacheKeys.CATEGORIES;
     
             const cache = await redisInstance.get(`${cacheKey}genderId${genderId}`);
@@ -20,6 +20,8 @@ async function httpGetCategories(req, res){
         const result = await categoryRepository.repoGetSubCategoriesWParent(genderId);
 
         const dal = await categoryDal.fromDal(result, true);
+
+        console.log(dal);
 
         if(redisInstance.isConnected){
 

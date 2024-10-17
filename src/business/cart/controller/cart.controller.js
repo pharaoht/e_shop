@@ -8,6 +8,7 @@ async function httpAddtoCart(req, res){
         //color, size, productId, price,
         const body = req.body;
 
+        console.log(req.body)
         const sessionId = req.session.guestId;
 
         const cartRepository = initCartRepo();
@@ -53,7 +54,7 @@ async function httpGetCart(req, res){
         const sessionId = req.session.guestId;
 
         const userId = req.session.userId;
-
+        console.log(sessionId, 'getCart')
         const cartDal = initCartDal();
 
         const cartRepository = initCartRepo();
