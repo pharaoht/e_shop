@@ -11,13 +11,14 @@ async function httpGetProducts(req, res){
 
     try {
 
-        const { genderId, subCategoryId, materialId, categoryId } = req.query;
+        const { genderId, subCategoryId, materialId, categoryId, sortBy } = req.query;
 
         const params = {
             genderId,
             subCategoryId,
             materialId,
             categoryId,
+
         };
 
         // if(redisInstance.isConnected){
@@ -98,18 +99,6 @@ async function httpCreateProduct(req, res){
         const colorRepo = initColorsRepository();
 
         const imageRepo = initImageRepository()
-
-        if (req.files) filepaths = req.files.map(file => file.path);
-
-        if (filepaths.length > 0) {
-            console.log('1')
-            for (const filepath of filepaths) {
-
-                const fileUrl = await uploadImageHelper(filepath);
-                console.log('2')
-                fileUrls.push(fileUrl);
-            }
-        };
         
         const result = await productsRepo.repoCreateProduct(
             body.productName,
@@ -129,9 +118,27 @@ async function httpCreateProduct(req, res){
             );
         };
 
+        if (req.files) filepaths = req.files.map(file => file.path);
+
+        if (filepaths.length > 0) {
+
+            for (const filepath of filepaths) {
+
+                const fileUrl = await uploadImageHelper(filepath);
+
+                fileUrls.push(fileUrl);
+            }
+        };
+
         //images
         for(const url of fileUrls){
             await imageRepo.repoCreateImage(result.insertId, url)
+        }
+
+        if(filepaths.length > 0){
+            for(const filepath of filepaths){
+                deleteFileFromFs(filepath);
+            }
         }
         
         return res.status(200).json('success');
@@ -156,9 +163,7 @@ async function uploadImageHelper(filepath){
 
         const url = await uploadService.uploadImage(filepath, folder);
 
-        deleteFileFromFs(filepath);
-
-        return url.public_id.split('/')[1];
+        return `${folder}/${url.public_id.split('/')[1]}`;
     }
     catch(error){
 

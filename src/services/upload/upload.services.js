@@ -67,10 +67,22 @@ class ImageUploadService {
             throw error;
         }
     }
+
+    transformImage(url){
+        const imgStr = cloudinary.url(url.split('/')[1], {
+            transformation: [
+                {width: 500, crop: "scale"},
+                {quality: "best"},
+                {fetch_format: "auto"}
+            ]
+        });
+
+        return imgStr;
+    }
 };
 
 const initImageUploadService = () => {
     return new ImageUploadService()
 }
 
-module.exports = initImageUploadService;
+module.exports = initImageUploadService 

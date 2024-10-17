@@ -1,6 +1,8 @@
+const fs = require('fs');
+
 function deleteFileFromFs(pathToFile){
     fs.unlink(pathToFile, (err) => {
-      console.log('hiiiiiii')
+
       if (err){
          console.error('Failed to delete local file:', err);
 

@@ -1,17 +1,20 @@
+
 class ImagesDal {
 
-    constructor(){};
+    constructor(){
+
+    };
 
     async fromDal( data ){
 
-        const dal = data.map((itm) => {
+        const dal = await data.map((itm) => {
 
             return {
                 imageId: itm.ImageID,
                 url: itm.ImageURL,
             }
         });
-
+        
         return dal
     };
 };

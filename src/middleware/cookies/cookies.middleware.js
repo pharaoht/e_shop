@@ -7,8 +7,8 @@ function setUpCookieMiddleware(){
     return cookieSession(
         {
             name: process.env.COOKIE_NAME,
-            maxAge: 24 * 60 * 60 * 1000,
-            keys: [ 'test' ],
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            keys: [ 'guestSession' ],
             httpOnly: true,
         }
     );
