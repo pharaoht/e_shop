@@ -18,7 +18,7 @@ async function httpGetImagesById(req, res) {
         const dal = await imageDal.fromDal(result);
 
         return res.status(200).json(dal);
-        
+
     } catch (error) {
 
         console.error(error);

@@ -31,13 +31,22 @@ class RedisCacheService {
                 }
             });
         
-            this.redisClient.on('error', (err) => console.error('Redis client error:', err));
+            this.redisClient.on('error', (err) => {
+
+                this.isConnected = false;
+                
+                console.error('Redis client error:', err)
+            });
 
             this.redisClient.on('end', () => console.error('Redis connection closed. Exiting.'));
         
-            this.redisClient.connect().then(console.log('*** redis instance created ***')).catch(console.error);
+            this.redisClient.connect().then(() => {
+        
+                this.isConnected = true;
 
-            this.isConnected = true;
+                console.log('*** redis instance created ***');
+
+            }).catch(console.error);
 
             this.cacheKeys = Object.freeze({
                 TOP_SIZES: 'topSizes',
@@ -127,7 +136,5 @@ class RedisCacheService {
 };
 
 const instance = new RedisCacheService();
-    
-Object.freeze(instance);
 
 module.exports = instance;
