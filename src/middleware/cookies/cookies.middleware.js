@@ -3,7 +3,7 @@ const cookieSession = require('cookie-session');
 require('dotenv').config();
 
 function setUpCookieMiddleware(){
-    
+    console.log(process.env.NODE_ENV === 'production')
     return cookieSession(
         {
             name: process.env.COOKIE_NAME,
@@ -12,6 +12,7 @@ function setUpCookieMiddleware(){
             secure: process.env.NODE_ENV === 'production',
             httpOnly: true,
             sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+            domain: process.env.NODE_ENV === 'production' ? 'https://e-comm-green.vercel.app': 'localhost'
         }
     );
 };
