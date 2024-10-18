@@ -8,6 +8,8 @@ const redis = require('./services/cache/redis.cache');
 
 const cronService = require('./services/cron/scheduler.cron');
 
+const passport = require('passport');
+
 const cors = require('cors');
 
 const cookieMiddleware = require('./middleware/cookies/cookies.middleware');
@@ -33,6 +35,10 @@ const cartRouter = require('./business/cart/routes/cart.routes');
 const materialsRouter = require('./business/materials/routes/materials.routes');
 
 app.use(cookieMiddleware());
+
+app.use(passport.initialize());
+
+app.use(passport.session());
 
 app.use(cors({ origin: [ 'http://localhost:3000', 'https://e-comm-green.vercel.app' ], credentials: true }));
 
