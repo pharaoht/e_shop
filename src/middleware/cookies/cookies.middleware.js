@@ -3,7 +3,9 @@ const cookieSession = require('cookie-session');
 require('dotenv').config();
 
 function setUpCookieMiddleware(){
+    
     console.log(process.env.NODE_ENV === 'production')
+
     return cookieSession(
         {
             name: process.env.COOKIE_NAME,
