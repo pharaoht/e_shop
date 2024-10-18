@@ -62,7 +62,6 @@ async function httpGetCart(req, res){
 
         const dal = await cartDal.fromDto(result);
 
-        console.log(dal);
         return res.status(200).json(dal);
     }
     catch(error){
