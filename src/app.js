@@ -18,6 +18,8 @@ const guestSessionMiddleware = require('./middleware/cookies/guest.middleware');
 
 const app = express();
 
+app.set('trust proxy', 1)
+
 const apiRouter = express.Router();
 
 const categoryRouter = require('./business/categories/routes/categories.routes');
