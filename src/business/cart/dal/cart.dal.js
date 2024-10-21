@@ -8,7 +8,7 @@ class CartDal {
 
         const dal = this.reduceCart(data);
 
-        const d = dal.map((itm, idx) => {
+        const d = data.map((itm, idx) => {
 
             return {
                 id: itm.ProductID,
@@ -17,14 +17,17 @@ class CartDal {
                 isActive: itm.IsActive = 0 ? false : true,
                 cartExpiration: moment.utc(itm.ExpiresAt).format('MM/DD/YYYY'),
                 colorId: itm.ColorID,
-                colorName: itm.colorName,
+                colorName: itm.ColorName,
                 sizeId: itm.SizeID,
                 sizeName: itm.SizeName,
                 productName: itm.ProductName,
                 productId: itm.ProductID,
                 price: itm.Price,
                 qty: itm.qty,
-                total: itm.total
+                imageUrl: itm.ImageURL,
+                totalItems: itm.totalItems,
+                subTotal: itm.subTotal,
+                total: itm.grandTotal
             }
         })
 
