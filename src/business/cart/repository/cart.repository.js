@@ -68,13 +68,26 @@ class CartRepository {
                 p.ProductName,
                 p.Price,
                 co.ColorName,
-                s.SizeName
+                s.SizeName,
+                (
+					SELECT ImageURL
+                    FROM Images i
+                    WHERE i.ProductID = ci.ProductID
+                    LIMIT 1
+                ) as ImageURL,
+                COUNT(*) AS qty,
+                SUM(COUNT(*)) OVER () AS totalItems,
+                (COUNT(*) * p.Price) AS subTotal,
+                SUM(COUNT(*) * p.Price) OVER () AS grandTotal 
             FROM Carts c
             INNER JOIN CartItems ci ON c.ID = ci.CartID
             INNER JOIN Products p ON ci.ProductID = p.ProductID
             INNER JOIN Colors co ON ci.ColorID = co.ColorID
             INNER JOIN Sizes s ON ci.SizeID = s.SizeID
             WHERE c.SessionID = ? OR c.UserID = ?
+            GROUP BY 
+			c.ID, UserID, SessionID, IsActive, ExpiresAt, c.CreatedAt, c.UpdatedAt,
+			ci.ProductID, ci.ColorID, ci.SizeID, p.ProductName, p.Price, co.ColorName, s.SizeName;
         `;
 
         const [ result ] = await db.execute(query, [id, id]);

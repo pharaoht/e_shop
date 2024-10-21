@@ -13,9 +13,9 @@ async function httpAddtoCart(req, res){
         const cartRepository = initCartRepo();
 
         const cartDal = initCartDal();
-        console.log(sessionId, 'addtoCArt')
+
         const isExist = await cartRepository.repoCheckIfCartExist(sessionId, '');
-        console.log(isExist, sessionId)
+
         if(!isExist){
 
             const newCartId = await cartRepository.repoCreateNewCart(sessionId, null);
@@ -51,9 +51,9 @@ async function httpGetCart(req, res){
     try{
 
         const sessionId = req.session.guestId;
-
+        console.log(sessionId)
         const userId = req.session.userId;
-        console.log(sessionId, 'getCart')
+
         const cartDal = initCartDal();
 
         const cartRepository = initCartRepo();
