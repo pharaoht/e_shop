@@ -1,17 +1,20 @@
 const moment = require('moment');
+const CurrencyConversion = require('../../../services/currency/conversion.currency');
 
-class ProductDal {
+class ProductDal extends CurrencyConversion {
 
-    constructor(){}
+    constructor(){
+        super()
+    }
 
-    async fromDal( data ){
+    async fromDal( data, cn ){
 
-        const dal = data.map((itm, idx) => {
+        const dal = await Promise.all(data.map(async (itm, idx) => {
 
             return {
                 productId: itm.ProductID,
                 name: itm.ProductName,
-                price: itm.Price,
+                price: cn ? await this.convertPrice(cn, Number(itm.Price)) : `$${itm.Price}`,
                 desc: itm.Description,
                 gender: itm.GenderName,
                 material: itm.MaterialName,
@@ -21,7 +24,7 @@ class ProductDal {
                 colorCodes: itm.ColorCodes.split(','),
                 colorNames: itm.ColorNames.split(',')
             }
-        })
+        }))
 
         return dal
     }

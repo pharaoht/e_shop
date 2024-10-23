@@ -4,11 +4,9 @@ class CartDal {
 
     constructor(){}
 
-    async fromDto( data ){
+    async fromDto( data, cn ){
 
-        const dal = this.reduceCart(data);
-
-        const d = data.map((itm, idx) => {
+        const d = await Promise.all(data.map(async (itm, idx) => {
 
             return {
                 id: itm.ProductID,
@@ -22,47 +20,18 @@ class CartDal {
                 sizeName: itm.SizeName,
                 productName: itm.ProductName,
                 productId: itm.ProductID,
-                price: itm.Price,
+                price: cn ? await this.convertPrice(cn, Number(itm.Price)) : `$${itm.Price}`,
                 qty: itm.qty,
                 imageUrl: itm.ImageURL,
                 totalItems: itm.totalItems,
-                subTotal: itm.subTotal,
-                total: itm.grandTotal
+                subTotal: cn ? await this.convertPrice(cn, Number(itm.subTotal)) : `$${itm.subTotal}`,
+                total: cn ? await this.convertPrice(cn, Number(itm.grandTotal)) : `$${itm.grandTotal}`,
             }
-        })
+        }))
 
         return d;
     };
 
-    reduceCart(data){
-
-        const dal = [];
-
-        const memo = new Map();
-
-        for(const obj of data){
-
-            if(!memo.has(obj.ProductID)){
-
-                const newObj = { ...obj, qty: 1, total: obj.Price * 1 };
-
-                memo.set(obj.ProductID, newObj);
-
-                dal.push(newObj);
-            }
-            else {
-
-                const recordFound = memo.get(obj.ProductID);
-
-                recordFound.qty += 1;
-
-                recordFound.total = recordFound.Price * recordFound.qty;
-            }
-
-        };
-    
-        return dal;
-    }
 };
 
 const initCartDal = () => {

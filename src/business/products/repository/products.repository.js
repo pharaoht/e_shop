@@ -38,9 +38,27 @@ class ProductsRepository {
         }
     }
 
-    async repoGetAllProducts( params ){
+    sortBuilder( value ){
+
+        const obj = {
+            new: 'ORDER BY p.CreatedAt DESC',
+            plow: 'ORDER BY p.Price ASC',
+            phigh: 'ORDER BY p.Price DESC'
+        }
+
+        if(value == '' || !(value in obj) ){
+            return '';
+        };
+
+        return obj[value];
+
+    }
+
+    async repoGetAllProducts( params, sortBy ){
 
         const { whereClause, queryParams } = this.paramBuilder(params);
+
+        const sortClause = this.sortBuilder(sortBy);
 
         const query = `
             SELECT 
@@ -73,6 +91,7 @@ class ProductsRepository {
                 LEFT JOIN Colors clr ON pc.ColorID = clr.ColorID
             ${whereClause}
             GROUP BY p.ProductID
+            ${sortClause}
         `;
 
         const [ data ] = await db.execute(query, queryParams);

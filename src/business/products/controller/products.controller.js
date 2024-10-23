@@ -12,7 +12,7 @@ async function httpGetProducts(req, res){
     try {
 
         const { genderId, subCategoryId, materialId, categoryId, sortBy } = req.query;
-
+  
         const params = {
             genderId,
             subCategoryId,
@@ -34,7 +34,7 @@ async function httpGetProducts(req, res){
 
         const productsRepo = initProductsRepository();
 
-        const result = await productsRepo.repoGetAllProducts(params);
+        const result = await productsRepo.repoGetAllProducts(params, sortBy);
 
         const dal = await productDal.fromDal(result);
 
