@@ -18,19 +18,19 @@ async function httpGetProducts(req, res){
             subCategoryId,
             materialId,
             categoryId,
-
+            sortBy
         };
 
-        // if(redisInstance.isConnected){
+        if(redisInstance.isConnected){
 
-        //     const cacheKey = redisInstance.cacheKeys.PRODUCTS;
+            const cacheKey = redisInstance.cacheKeys.PRODUCTS;
 
-        //     const generated = await redisInstance.generateCacheKey(cacheKey, params);
+            const generated = await redisInstance.generateCacheKey(cacheKey, params);
 
-        //     const cache = await redisInstance.get(generated);
+            const cache = await redisInstance.get(generated);
 
-        //     if(cache !== null) return res.status(200).json(cache);
-        // }
+            if(cache !== null) return res.status(200).json(cache);
+        }
 
         const productsRepo = initProductsRepository();
 
@@ -139,6 +139,11 @@ async function httpCreateProduct(req, res){
             for(const filepath of filepaths){
                 deleteFileFromFs(filepath);
             }
+        }
+
+        if(redisInstance.isConnected){
+
+            await redisInstance.clearAllCluster();
         }
         
         return res.status(200).json('success');

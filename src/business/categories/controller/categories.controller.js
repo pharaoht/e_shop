@@ -13,7 +13,7 @@ async function httpGetCategories(req, res){
             const cacheKey = redisInstance.cacheKeys.CATEGORIES;
     
             const cache = await redisInstance.get(`${cacheKey}genderId${genderId}`);
-
+            
             if(cache !== null) return res.status(200).json(cache);
         }
 
