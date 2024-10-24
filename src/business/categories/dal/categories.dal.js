@@ -24,7 +24,7 @@ class CategoryDal {
         const cats = [];
 
         for (const itm of data) {
-  
+
             const existingCategoryIndex = cats.findIndex(cat => cat.categoryName === itm.CategoryName);
 
             if (existingCategoryIndex === -1) {
