@@ -51,7 +51,7 @@ async function httpGetCart(req, res){
     try{
 
         const sessionId = req.session.guestId;
-        console.log(sessionId)
+
         const userId = req.session.userId;
 
         const cartDal = initCartDal();
@@ -72,8 +72,30 @@ async function httpGetCart(req, res){
     }
 }
 
+async function httpDeleteCartItem(req, res){
+
+    try {
+
+        const { productId, sizeId, colorId, cartId } = req.query;
+
+        const cartRepository = initCartRepo();
+
+        const result = await cartRepository.repoDeleteCart(productId, sizeId, colorId, cartId);
+
+        return res.status(200).json('success')
+    }
+    catch(error){
+
+        console.error(error);
+
+        return res.status(400).json(error);
+
+    }
+}
+
 
 module.exports = {
     httpAddtoCart,
     httpGetCart,
+    httpDeleteCartItem
 }
