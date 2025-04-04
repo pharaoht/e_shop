@@ -72,15 +72,16 @@ CREATE TABLE Images (
 
 
 CREATE TABLE Users (
-    UserID SERIAL PRIMARY KEY,
+    ID INT PRIMARY KEY AUTO_INCREMENT,
     GivenName VARCHAR(100) NOT NULL,
     FamilyName VARCHAR(255) NOT NULL,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Carts (
-    ID SERIAL PRIMARY KEY,
-    UserID INT REFERENCES Users(id) ON DELETE CASCADE,  -- For logged-in users
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE,  -- For logged-in users
     SessionID VARCHAR(255),                             -- For guest users
     IsActive BOOLEAN DEFAULT TRUE,                      -- Indicates if the cart is active
     ExpiresAt TIMESTAMP DEFAULT (DATE_ADD(NOW(), INTERVAL 7 DAY)),
@@ -89,11 +90,15 @@ CREATE TABLE Carts (
 );
 
 CREATE TABLE CartItems (
-    ID SERIAL PRIMARY KEY,
-    CartID INT REFERENCES Carts(ID) ON DELETE CASCADE,   -- Links to Carts table
-    ProductID INT REFERENCES Products(ID),               -- Links to Products table          -- Number of products in the cart
-    ColorID INT REFERENCES Colors(ID),
-    SizeID INT REFERENCES Sizes(ID),
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    CartID INT NOT NULL,
+    ProductID INT NOT NULL,
+    ColorID INT NOT NULL,
+    SizeID INT NOT NULL,
+    FOREIGN KEY (CartID) REFERENCES Carts(ID) ON DELETE CASCADE,   -- Links to Carts table
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),               -- Links to Products table          -- Number of products in the cart
+    FOREIGN KEY (ColorID) REFERENCES Colors(ColorID),
+    FOREIGN KEY (SizeID) REFERENCES Sizes(SizeID),
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

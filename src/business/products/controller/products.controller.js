@@ -11,14 +11,16 @@ async function httpGetProducts(req, res){
 
     try {
 
-        const { genderId, subCategoryId, materialId, categoryId, sortBy } = req.query;
+        const { genderId, subCategoryId, materialId, categoryId, sortBy, color, material } = req.query;
   
         const params = {
             genderId,
             subCategoryId,
             materialId,
             categoryId,
-            sortBy
+            sortBy,
+            color,
+            material
         };
 
         if(redisInstance.isConnected){
